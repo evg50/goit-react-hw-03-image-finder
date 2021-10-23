@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { Component } from "react";
+import Modal from "./Modal";
+export default class ImageGalleryItem extends Component {
+  state = {
+    showModal: false,
+  };
 
- function ImageGalleryItem({imgUrl,imgTitle}) {
-    //  console.log(imgUrl)
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
+  render() {
+    const { imgUrl, imgTitle, imgLargeUrl } = this.props;
+    const { showModal } = this.state;
+    console.log(imgLargeUrl);
+
     return (
-<div className="ImageGalleryItem">
-  <img src={imgUrl} alt={imgTitle} className="ImageGalleryItem-image" />
-  <h2>{imgTitle}</h2>
-</div>
-)
+      <li className="ImageGalleryItem">
+        <img
+          src={imgUrl}
+          alt={imgTitle}
+          className="ImageGalleryItem-image"
+          onClick={this.toggleModal}
+        />
+        {showModal && (
+          <Modal onClose={this.toggleModal} src={imgLargeUrl} alt={imgTitle} />
+        )}
+      </li>
+    );
+  }
 }
-export default ImageGalleryItem
