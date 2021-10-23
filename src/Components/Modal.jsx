@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { createPortal } from 'react-dom';
+
+const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
 	componentDidMount() {
@@ -20,12 +23,13 @@ export class Modal extends Component {
 	};
 	render() {
 		const { src, alt } = this.props;
-		return (
+		return createPortal(
 			<div className="Overlay" onClick={this.handleCLoseModal}>
 				<div className="Modal">
 					<img src={src} alt={alt} />
 				</div>
-			</div>
+			</div>,
+			modalRoot
 		);
 	}
 }
